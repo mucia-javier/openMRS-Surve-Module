@@ -1,0 +1,6 @@
+org/openmrs/module/expsurvey/api/PatientExperienceSurveyService.class
+org/openmrs/module/expsurvey/api/impl/PatientExperienceSurveyServiceImpl.class
+org/openmrs/module/expsurvey/api/db/PatientExperienceSurveyDAO.class
+org/openmrs/module/expsurvey/api/db/hibernate/HibernatePatientExperienceSurveyDAO.class
+org/openmrs/module/expsurvey/PatientExperienceSurveyActivator.class
+org/openmrs/module/expsurvey/PatientExperienceSurvey.class

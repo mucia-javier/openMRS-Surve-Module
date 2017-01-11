@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <!--
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+    
+    
+        <changeSet author="HoshiMoshi" id="23435684-9">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="experiencesurvey_experiencesurvey"/></not>
+        </preConditions>
+        <comment>Create the experience-survey table</comment>
+        <createTable tableName="experiencesurvey_experiencesurvey">
+        
+            <column autoIncrement="true" name="survey_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="uuid" type="char(38)" />
+            <column name="patient_id" type="char(38)" />
+            <column name="answer_1" type="varchar(255)" />
+            <column name="answer_2" type="varchar(255)" />            
+            
+        </createTable>
+    </changeSet>
+    
+    
+<!-- (1) SURVEY TABLE -->
+      <changeSet author="HoshiMoshi" id="23435684-1">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="expsurvey_survey"/></not>
+        </preConditions>
+        <comment>Create SURVEY table</comment>
+        
+        
+        <createTable tableName="expsurvey_survey">
+            <column autoIncrement="true" name="survey_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="date" type="datetime"></column>
+            <column name="survey_name" type="char(38)" />        
+        </createTable>  			
+    </changeSet>
+ 
+
+<!-- (2) QUESTION TABLE -->           
+    <changeSet author="HoshiMoshi" id="23435684-2">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="expsurvey_question"/></not>
+        </preConditions>
+        <comment>Create QUESTION table</comment>
+        <createTable tableName="expsurvey_question">
+            <column autoIncrement="true" name="question_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="question_text" type="char(38)" />
+            <column name="question_number" type="int" />           
+        </createTable>
+    </changeSet>
+
+
+<!-- (3) SURVEY<->QUESTION TABLE -->       
+    <changeSet author="HoshiMoshi" id="23435684-3">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="expsurvey_survey_question"/></not>
+        </preConditions>
+        <comment>Create SURVEY-QUESTION table</comment>
+        <createTable tableName="expsurvey_survey_question">
+            <column name="survey_id" type="int"/>
+            <column name="question_id" type="int"/>      
+        </createTable>        
+		<addForeignKeyConstraint constraintName="expsurvey_survey_question_survey_id"
+			baseTableName="expsurvey_survey_question" baseColumnNames="survey_id"
+			referencedTableName="expsurvey_survey" referencedColumnNames="survey_id"/>			
+		<addForeignKeyConstraint constraintName="expsurvey_survey_question_question_id" 
+			baseTableName="expsurvey_survey_question" baseColumnNames="question_id"
+			referencedTableName="expsurvey_question" referencedColumnNames="question_id"/>  
+    </changeSet>    
+
+<!-- (5) PERSON TABLE -->       
+    <changeSet author="HoshiMoshi" id="23435684-5">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="expsurvey_person"/></not>
+        </preConditions>
+        <comment>Create PERSON table</comment>
+        <createTable tableName="expsurvey_person">
+            <column autoIncrement="true" name="person_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="first_name" type="char(20)"/>
+            <column name="last_name" type="char(20)"/>  
+        </createTable>
+    </changeSet>  
+
+<!-- (4) ANSWER TABLE -->       
+    <changeSet author="HoshiMoshi" id="23435684-4">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="expsurvey_answer"/></not>
+        </preConditions>
+        <comment>Create ANSWER table</comment>
+        <createTable tableName="expsurvey_answer">
+            <column name="survey_id"   type="int"/>         
+            <column name="question_id" type="int"/>            
+            <column name="person_id" type="int"/>          
+            <column name="answer_text" type="char(100)"/>
+            <column name="answer_number" type="int"/>
+            <column name="answer_bullet" type="char(10)"/>
+        </createTable>  
+        
+		<addForeignKeyConstraint constraintName="expsurvey_answer_survey_id"
+			baseTableName="expsurvey_answer" baseColumnNames="survey_id"
+			referencedTableName="expsurvey_survey" referencedColumnNames="survey_id"/>		
+		<addForeignKeyConstraint constraintName="expsurvey_answer_question_id" 
+			baseTableName="expsurvey_answer" baseColumnNames="question_id"
+			referencedTableName="expsurvey_question" referencedColumnNames="question_id"/> 		
+		<addForeignKeyConstraint constraintName="expsurvey_answer_person_id" 
+			baseTableName="expsurvey_answer" baseColumnNames="person_id"
+			referencedTableName="expsurvey_person" referencedColumnNames="person_id"/> 			
+    </changeSet>  
+
+
+<!-- (A) HEART SURVEY -->
+      <changeSet author="HoshiMoshi" id="123-1">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="survey_heart"/></not>
+        </preConditions>
+        <comment>Create HEART SURVEY table</comment>
+        
+        
+        <createTable tableName="survey_heart">
+            <column autoIncrement="true" name="survey_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="patient_id" type="int"/>       
+            <column name="date" type="datetime"></column>
+            <column name="survey_name" type="varchar(50)" />             
+            <column name="ans1" type="varchar(85)" />
+            <column name="ans2" type="varchar(60)" />
+            <column name="ans3" type="varchar(60)" />             
+            <column name="ans4" type="varchar(60)" /> 
+            <column name="ans5" type="varchar(60)" /> 
+            <column name="ans6" type="varchar(60)" /> 
+            <column name="ans7" type="varchar(300)" />            
+            <column name="ans8" type="varchar(60)" /> 
+            <column name="ans9" type="varchar(60)" />  
+        </createTable>  			
+    </changeSet>
+
+
+
+<!-- (B) DIABETES SURVEY -->
+      <changeSet author="HoshiMoshi" id="124-1">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="survey_diabetes"/></not>
+        </preConditions>
+        <comment>Create DIABETES SURVEY table</comment>
+        
+        
+        <createTable tableName="survey_diabetes">
+            <column autoIncrement="true" name="survey_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="patient_id" type="int"/>       
+            <column name="date" type="datetime"></column>
+            <column name="survey_name" type="varchar(50)" /> 
+                      
+            <column name="ans1" type="varchar(10)" />
+            <column name="ans2" type="varchar(30)" />
+            <column name="ans3" type="varchar(30)" />             
+            <column name="ans4" type="varchar(100)" /> 
+            <column name="ans5" type="varchar(300)" /> 
+            <column name="ans6" type="varchar(20)" /> 
+            <column name="ans7" type="varchar(300)" />     
+                   
+            <column name="ans81" type="varchar(100)" /> 
+            <column name="ans82" type="varchar(100)" /> 
+            <column name="ans83" type="varchar(100)" /> 
+            <column name="ans84" type="varchar(100)" /> 
+            <column name="ans85" type="varchar(100)" /> 
+            <column name="ans86" type="varchar(100)" /> 
+            <column name="ans87" type="varchar(100)" /> 
+            <column name="ans88" type="varchar(100)" /> 
+            <column name="ans89" type="varchar(100)" /> 
+            <column name="ans810" type="varchar(100)" /> 
+            <column name="ans811" type="varchar(100)" /> 
+            <column name="ans812" type="varchar(100)" /> 
+            <column name="ans813" type="varchar(100)" /> 
+            <column name="ans814" type="varchar(100)" /> 
+            <column name="ans815" type="varchar(100)" /> 
+
+            <column name="ans9" type="varchar(100)" />  
+            <column name="ans10" type="varchar(100)" />      
+            <column name="ans11" type="varchar(200)" />
+            <column name="ans12" type="varchar(100)" />  
+            <column name="ans13" type="varchar(400)" />      
+        </createTable>  			
+    </changeSet>
+
+
+
+      
+</databaseChangeLog>

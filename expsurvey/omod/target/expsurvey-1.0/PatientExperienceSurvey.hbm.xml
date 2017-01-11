@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.expsurvey">
+
+	<class name="PatientExperienceSurvey"
+	
+		table="expsurvey_PatientExperienceSurvey">
+		
+		<id name="surveyId" type="int" column="survey_id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="survey_id" insert="false" />
+		
+		
+		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
+		<property name="patientId" type="java.lang.String" column="patient_id" length="38" unique="true" />
+        <property name="answer1" type="java.lang.String" column="answer_1" length="255" /> 	
+        <property name="answer2" type="java.lang.String" column="answer_2" length="255" /> 	
+			
+			
+	</class>
+</hibernate-mapping>

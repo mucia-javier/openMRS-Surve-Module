@@ -1,0 +1,118 @@
+
+a.renderSurvey:link {
+    color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.newSurvey:link {
+    color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderHeartSurvey:link {
+    color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.pastSurveys:link {
+    color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+
+
+a.newSurvey:visited {
+	color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderSurvey:visited {
+	color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderHeartSurvey:visited {
+	color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+a.pastSurveys:visited {
+	color: white;
+    text-decoration: none;
+    font-size: 120%;
+    text-align: center;
+}
+
+
+
+a.newSurvey:hover {
+    color: red;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderSurvey:hover {
+    color: red;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderHeartSurvey:hover {
+    color: red;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.pastSurveys:hover {
+    color: red;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+
+
+a.newSurvey:active {
+    color: white;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderSurvey:active {
+    color: white;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.renderHeartSurvey:active {
+    color: white;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+a.pastSurveys:active {
+    color: white;
+    text-decoration: underline;
+    font-size: 120%;
+    text-align: center;
+}
+
+
+#links {
+	border-radius: 7px;
+	background-color: #00463F;
+	padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+}
+iframe{
+border: 0 none;
+}
